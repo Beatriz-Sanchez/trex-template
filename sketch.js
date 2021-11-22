@@ -1,4 +1,4 @@
-var trex, trex_correndo, bordas
+var trex, trex_correndo, bordas;
 
 function preload(){
   
@@ -39,7 +39,7 @@ function draw(){
   
   //T-Rex pula ao apertar espaço
   if(keyDown('space')){
-        trex.velocityY = -15; 
+      trex.velocityY = -10; 
     }
   
   //Trex colide com a borda inferior
