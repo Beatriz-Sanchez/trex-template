@@ -1,70 +1,53 @@
-var trex, trex_correndo, bordas, solo
+var trex, trex_correndo;
+var solo, solo_imagem;
+var solo_inv;
 
 function preload(){
-  
-  //criar animação do T-Rex correndo
-  trex_correndo = loadAnimation('trex1.png','trex3.png','trex4.png');
-  
-  //carregar imagem do solo
-  imagemDoSolo = loadImage("solo2.png");
+  trex_correndo = loadAnimation("trex1.png", "trex3.png", "trex4.png");
+  solo_imagem = loadImage("solo2.png")
 }
 
 function setup(){
+  createCanvas(600,200);
   
-//cria a tela
-createCanvas(600,200);
+  //cria trex
+  trex = createSprite(50,100,20,50);
+  trex.addAnimation("correndo", trex_correndo);
+  trex.scale = 0.5;
   
-//cria sprite do T-Rex
-trex = createSprite(50,60,20,50);
-trex.scale = 0.5;
-trex.x = 50;
-//adiciona a animação de T-Rex correndo ao sprite
-trex.addAnimation('correndo', trex_correndo);
+  solo = createSprite(300,170,1200,5)
+  solo.addImage(solo_imagem)
   
-//cria bordas
-bordas = createEdgeSprites();
+  solo_inv = createSprite(300,180,1200,5)
+  solo_inv.visible = false
   
-//aprendendo sobre console.log
-//escreve o nome do jogo no terminal
-console.log("T-Rex corredor");
-  
-//cria solo
-solo = createSprite(300,190,1200,20);
-  
-//adiciona imagem de solo
-solo.addImage("solo", imagemDoSolo)
-solo.x = solo.width/2;
 }
 
 function draw(){
-
-  //fundo branco
   background("white");
   
-  //desenha os sprites
-drawSprites();
-  
-  //T-Rex pula ao apertar espaço
-  if(keyDown('space')){
-trex.velocityY = -15; 
-}
-  
-  
-//Trex colide com o solo
-  trex.collide(solo);
+  //pulo
+  if (keyDown("space") && trex.y > 153){
+    trex.velocityY = -20;
+  }
   
   //gravidade
-  trex.velocityY = trex.velocityY + 1;
+  trex.velocityY = trex.velocityY + 2;
   
-  //Registra a posição Y do T-Rex no reminal
-console.log("posição Y do T-Rex: " + trex.y);
+  trex.collide(solo_inv)
+  solo.velocityX = -3
   
-  //faz o T-Rex correr adicionando velocidade ao solo
-  solo.velocityX = -6;
+  if (solo.x < 0){
+    solo.x = solo.width/2
+  }
   
-//faz o solo voltar ao centro se metade dele sair da tela
-  if (solo.x<0){
-solo.x=solo.width/2
+  console.log(trex.y)
+  
+  gerarNuvens();
+  
+  drawSprites();
 }
+
+function gerarNuvens(){
   
 }
