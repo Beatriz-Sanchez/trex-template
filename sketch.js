@@ -1,10 +1,9 @@
 var trex, trex_correndo;
-var solo, solo_imagem;
-var solo_inv;
+var solo, soloImg, soloInvisivel;
 
 function preload(){
   trex_correndo = loadAnimation("trex1.png", "trex3.png", "trex4.png");
-  solo_imagem = loadImage("solo2.png")
+  soloImg = loadImage("solo2.png");
 }
 
 function setup(){
@@ -15,11 +14,11 @@ function setup(){
   trex.addAnimation("correndo", trex_correndo);
   trex.scale = 0.5;
   
-  solo = createSprite(300,170,1200,5)
-  solo.addImage(solo_imagem)
+  solo = createSprite(300,170,1200,5);
+  solo.addImage(soloImg);
   
-  solo_inv = createSprite(300,180,1200,5)
-  solo_inv.visible = false
+  soloInvisivel = createSprite(300,180,1200,5);
+  soloInvisivel.visible = false;
   
 }
 
@@ -34,11 +33,11 @@ function draw(){
   //gravidade
   trex.velocityY = trex.velocityY + 2;
   
-  trex.collide(solo_inv)
-  solo.velocityX = -3
+  trex.collide(soloInvisivel);
+  solo.velocityX = -3;
   
   if (solo.x < 0){
-    solo.x = solo.width/2
+    solo.x = solo.width/2;
   }
   
   //console.log(trex.y);
