@@ -41,13 +41,7 @@ function draw(){
     solo.x = solo.width/2
   }
   
-  console.log(trex.y)
-  
-  gerarNuvens();
+  //console.log(trex.y);
   
   drawSprites();
-}
-
-function gerarNuvens(){
-  
 }
