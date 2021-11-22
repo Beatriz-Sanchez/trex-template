@@ -1,4 +1,5 @@
-var trex, trex_correndo, bordas, solo
+var trex, trex_correndo;
+var solo, soloImg;
 
 function preload(){
   
@@ -6,7 +7,7 @@ function preload(){
   trex_correndo = loadAnimation('trex1.png','trex3.png','trex4.png');
   
   //carregar imagem do solo
-  imagemDoSolo = loadImage("solo2.png");
+  soloImg = loadImage("solo2.png");
 }
 
 function setup(){
@@ -21,9 +22,6 @@ trex.x = 50;
 //adiciona a animação de T-Rex correndo ao sprite
 trex.addAnimation('correndo', trex_correndo);
   
-//cria bordas
-bordas = createEdgeSprites();
-  
 //aprendendo sobre console.log
 //escreve o nome do jogo no terminal
 console.log("T-Rex corredor");
@@ -32,7 +30,7 @@ console.log("T-Rex corredor");
 solo = createSprite(300,190,1200,20);
   
 //adiciona imagem de solo
-solo.addImage("solo", imagemDoSolo)
+solo.addImage("solo", soloImg)
 solo.x = solo.width/2;
 }
 
