@@ -1,11 +1,21 @@
 var trex, trex_correndo;
 var solo, soloImg, soloInvisivel;
 var nuvem, nuvemImg;
+var cacto, cacto1, cacto2, cacto3, cacto4, cacto5, cacto6;
+var pontos = 0;
 
 function preload() {
   trex_correndo = loadAnimation("trex1.png", "trex3.png", "trex4.png");
   soloImg = loadImage("solo2.png");
   nuvemImg = loadImage("nuvem.png");
+
+  // carregar imagens dos obstaculos
+  cacto1 = loadImage("obstaculo1.png");
+  cacto2 = loadImage("obstaculo2.png");
+  cacto3 = loadImage("obstaculo3.png");
+  cacto4 = loadImage("obstaculo4.png");
+  cacto5 = loadImage("obstaculo5.png");
+  cacto6 = loadImage("obstaculo6.png");
 }
 
 function setup() {
@@ -27,6 +37,9 @@ function setup() {
 function draw() {
   background("white");
 
+  text("Pontos: "+pontos,500,20);
+  pontos = Math.round((pontos+(frameCount/3))/2);
+
   //pulo
   if (keyDown("space") && trex.y > 153) {
     trex.velocityY = -20;
@@ -44,8 +57,9 @@ function draw() {
 
   //console.log(trex.y);
 
-  //gerando nuvens
+  //gerando nuvens e cactos
   gerarNuvens();
+  gerarCactos();
 
   drawSprites();
 }
@@ -62,5 +76,34 @@ function gerarNuvens() {
     nuvem.depth = trex.depth;
     trex.depth = trex.depth + 1;
     nuvem.lifetime = 220;
+  }
+}
+
+function gerarCactos(){
+  //criar sprite de obstáculo a cada 60 quadros
+  if(frameCount %60 === 0){
+    cacto = createSprite(600,155,10,40);
+    cacto.velocityX= -6;
+  
+  //adicionar imagem ao obstaculo aleatoriamente
+    var rand = Math.round(random(1,6));
+    switch(rand){
+      case 1: cacto.addImage(cacto1);
+        	break;
+      case 2: cacto.addImage(cacto2);
+        	break;
+   	  case 3: cacto.addImage(cacto3);
+        	break;
+      case 4: cacto.addImage(cacto4);
+        	break;
+      case 5: cacto.addImage(cacto5);
+        	break;
+      case 6: cacto.addImage(cacto6);
+        	break;
+      default: break;
+    }
+    //atribuir escala e tempo de vida aos obstáculos
+    cacto.scale = 0.5;
+    cacto.lifetime = 300;
   }
 }
