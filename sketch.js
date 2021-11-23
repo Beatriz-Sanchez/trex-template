@@ -61,5 +61,6 @@ function gerarNuvens() {
     nuvem.velocityX = -3;
     nuvem.depth = trex.depth;
     trex.depth = trex.depth + 1;
+    nuvem.lifetime = 220;
   }
 }
