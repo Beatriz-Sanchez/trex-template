@@ -1,8 +1,11 @@
 var trex, trex_correndo;
 var solo, soloImg, soloInvisivel;
-var nuvem, nuvemImg;
-var cacto, cacto1, cacto2, cacto3, cacto4, cacto5, cacto6;
+var nuvem, nuvemImg, grupoNuvens;
+var cacto, cacto1, cacto2, cacto3, cacto4, cacto5, cacto6, grupoCactos;
 var pontos = 0;
+var JOGAR = 1;
+var ENCERRAR = 0;
+var estadoJogo = JOGAR;
 
 function preload() {
   trex_correndo = loadAnimation("trex1.png", "trex3.png", "trex4.png");
@@ -31,6 +34,9 @@ function setup() {
 
   soloInvisivel = createSprite(300, 180, 1200, 5);
   soloInvisivel.visible = false;
+  
+  grupoNuvens = new Group();
+  grupoCactos = new Group();
 
 }
 
@@ -62,8 +68,13 @@ function draw() {
   gerarCactos();
 
   drawSprites();
+  
+  if (estadoJogo === JOGAR){
+    
+  } else if (estadoJogo === ENCERRAR){
+    
+  }
 }
-
 //definição da função de gerar nuvens
 function gerarNuvens() {
 
@@ -76,6 +87,7 @@ function gerarNuvens() {
     nuvem.depth = trex.depth;
     trex.depth = trex.depth + 1;
     nuvem.lifetime = 220;
+    grupoNuvens.add(nuvem);
   }
 }
 
@@ -105,5 +117,6 @@ function gerarCactos(){
     //atribuir escala e tempo de vida aos obstáculos
     cacto.scale = 0.5;
     cacto.lifetime = 300;
+    grupoCactos.add(cacto);
   }
 }
