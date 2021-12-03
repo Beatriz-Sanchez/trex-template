@@ -170,7 +170,7 @@ function gerarCactos() {
     }
     //atribuir escala e tempo de vida aos obstáculos
     cacto.scale = 0.5;
-    cacto.lifetime = 300;
+    cacto.lifetime = 110;
     grupoCactos.add(cacto);
   }
 }
