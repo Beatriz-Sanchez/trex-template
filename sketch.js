@@ -42,39 +42,53 @@ function setup() {
 
 function draw() {
   background("white");
-
   text("Pontos: "+pontos,500,20);
-  pontos = Math.round((pontos+(frameCount/3))/2);
-
-  //pulo
-  if (keyDown("space") && trex.y > 153) {
-    trex.velocityY = -20;
-  }
-
-  //gravidade
-  trex.velocityY = trex.velocityY + 2;
 
   trex.collide(soloInvisivel);
-  solo.velocityX = -6;
-
-  if (solo.x < 0) {
-    solo.x = solo.width / 2;
-  }
-
-  //console.log(trex.y);
-
-  //gerando nuvens e cactos
-  gerarNuvens();
-  gerarCactos();
 
   drawSprites();
   
+  //comportamentos que só ocorrem no estado de jogo JOGAR
   if (estadoJogo === JOGAR){
     
+    //aumentar pontos
+    pontos = Math.round((pontos+(frameCount/3))/2);
+
+    //pulo
+    if (keyDown("space") && trex.y > 153) {
+      trex.velocityY = -20;
+    }
+
+    //gravidade
+    trex.velocityY = trex.velocityY + 2;
+    
+    //criando o solo infinito
+    solo.velocityX = -6;
+    if (solo.x < 0) {
+      solo.x = solo.width / 2;
+    }
+
+    //gerando nuvens e cactos
+    gerarNuvens();
+    gerarCactos();
+    
+    //momento em que o jogo acaba
+    if (grupoCactos.isTouching(trex)){
+      estadoJogo = ENCERRAR
+    }
+  
+  //comportamentos que só ocorrem no estado de jogo ENCERRAR
   } else if (estadoJogo === ENCERRAR){
     
+    //parar o solo
+    solo.velocityX = 0;
+    
+    //parar as nuvens e obstáculos
+    grupoCactos.setVelocityXEach(0);
+    grupoNuvens.setVelocityXEach(0);
   }
 }
+
 //definição da função de gerar nuvens
 function gerarNuvens() {
 
