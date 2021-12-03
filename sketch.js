@@ -55,7 +55,7 @@ function draw() {
   trex.velocityY = trex.velocityY + 2;
 
   trex.collide(soloInvisivel);
-  solo.velocityX = -3;
+  solo.velocityX = -6;
 
   if (solo.x < 0) {
     solo.x = solo.width / 2;
