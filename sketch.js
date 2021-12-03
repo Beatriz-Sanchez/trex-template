@@ -1,4 +1,4 @@
-var trex, trex_correndo;
+var trex, trex_correndo, trex_colidiu;
 var solo, soloImg, soloInvisivel;
 var nuvem, nuvemImg, grupoNuvens;
 var cacto, cacto1, cacto2, cacto3, cacto4, cacto5, cacto6, grupoCactos;
@@ -9,6 +9,8 @@ var estadoJogo = JOGAR;
 
 function preload() {
   trex_correndo = loadAnimation("trex1.png", "trex3.png", "trex4.png");
+  trex_colidiu = loadAnimation("trex_colidiu.png");
+
   soloImg = loadImage("solo2.png");
   nuvemImg = loadImage("nuvem.png");
 
@@ -27,7 +29,10 @@ function setup() {
   //cria trex
   trex = createSprite(50, 100, 20, 50);
   trex.addAnimation("correndo", trex_correndo);
+  trex.addAnimation("colidiu", trex_colidiu);
   trex.scale = 0.5;
+  trex.debug = false;
+  trex.setCollider("circle", 5, 0, 43);
 
   solo = createSprite(300, 170, 1200, 5);
   solo.addImage(soloImg);
@@ -60,7 +65,7 @@ function draw() {
     }
 
     //gravidade
-    trex.velocityY = trex.velocityY + 2;
+    trex.velocityY = trex.velocityY + 1.5 ;
     
     //criando o solo infinito
     solo.velocityX = -6;
