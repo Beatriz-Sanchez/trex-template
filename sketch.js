@@ -43,6 +43,8 @@ function setup() {
   trex.scale = 0.5;
   trex.debug = false;
   trex.setCollider("circle", 5, 0, 43);
+  //colisor para a IA
+  // trex.setCollider("rectangle",100,0);
 
   solo = createSprite(300, 170, 1200, 5);
   solo.addImage(soloImg);
@@ -77,17 +79,23 @@ function draw() {
 
     //aumentar pontos
     pontos = Math.round((pontos + (frameCount / 3)) / 2);
+    //tocar som a cada 100 pontos
+    if(pontos>0 && pontos%100 === 0){
+      somPontos.play();
+    }
 
     //pulo
     if (keyDown("space") && trex.y > 153) {
       trex.velocityY = -20;
+      somPulo.play();
     }
 
     //gravidade
     trex.velocityY = trex.velocityY + 1.5;
 
-    //criando o solo infinito
-    solo.velocityX = -6;
+    //mudando a velocidade do solo de acordo com a pontuação
+    solo.velocityX = -(5+ pontos*3/100);
+    //tornando o solo infinito
     if (solo.x < 0) {
       solo.x = solo.width / 2;
     }
@@ -99,6 +107,11 @@ function draw() {
     //momento em que o jogo acaba
     if (grupoCactos.isTouching(trex)) {
       estadoJogo = ENCERRAR;
+      somMorte.play();
+
+      //descomentar para trex IA
+      // trex.velocityY = -17;
+      // somPulo.play();
     }
 
     //comportamentos que só ocorrem no estado de jogo ENCERRAR
@@ -145,9 +158,9 @@ function gerarNuvens() {
 
 function gerarCactos() {
   //criar sprite de obstáculo a cada 60 quadros
-  if (frameCount % 60 === 0) {
+  if (frameCount % 40 === 0) {
     cacto = createSprite(600, 155, 10, 40);
-    cacto.velocityX = -6;
+    cacto.velocityX = -(6+ pontos*3/100);
 
     //adicionar imagem ao obstaculo aleatoriamente
     var rand = Math.round(random(1, 6));
