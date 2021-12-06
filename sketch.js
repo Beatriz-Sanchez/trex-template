@@ -7,6 +7,7 @@ var JOGAR = 1;
 var ENCERRAR = 0;
 var estadoJogo = JOGAR;
 var gameOverImg, reiniciarImg, gameOver, reiniciar;
+var somPulo, somMorte, somPontos;
 
 function preload() {
   trex_correndo = loadAnimation("trex1.png", "trex3.png", "trex4.png");
@@ -26,6 +27,10 @@ function preload() {
   gameOverImg = loadImage("fimDoJogo.png");
   reiniciarImg = loadImage("reiniciar.png");
 
+  //carregar sons
+  somPulo = loadSound("pulo.mp3");
+  somMorte = loadSound("morte.mp3");
+  somPontos = loadSound("checkPoint.mp3");
 }
 
 function setup() {
