@@ -73,6 +73,11 @@ function draw() {
   trex.collide(soloInvisivel);
 
   drawSprites();
+  
+  if (mousePressedOver(reiniciar)){
+   console.log("reiniciar");
+   reinicie();
+  }
 
   //comportamentos que só ocorrem no estado de jogo JOGAR
   if (estadoJogo === JOGAR) {
@@ -191,4 +196,8 @@ function gerarCactos() {
     cacto.lifetime = 110;
     grupoCactos.add(cacto);
   }
+}
+
+function reinicie(){
+  
 }
