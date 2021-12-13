@@ -73,17 +73,12 @@ function draw() {
   trex.collide(soloInvisivel);
 
   drawSprites();
-  
-  if (mousePressedOver(reiniciar)){
-   console.log("reiniciar");
-   reinicie();
-  }
 
   //comportamentos que só ocorrem no estado de jogo JOGAR
   if (estadoJogo === JOGAR) {
 
     //aumentar pontos
-    pontos = Math.round((pontos + (frameCount / 3)) / 2);
+    pontos = Math.round(pontos + frameRate()/60);
     //tocar som a cada 100 pontos
     if(pontos>0 && pontos%100 === 0){
       somPontos.play();
@@ -142,6 +137,11 @@ function draw() {
     //tornar imagens de fim de jogo visíveis
     gameOver.visible = true;
     reiniciar.visible = true;
+
+    if (mousePressedOver(reiniciar)){
+      console.log("reiniciar");
+      reinicie();
+     }
   }
 }
 
@@ -194,10 +194,23 @@ function gerarCactos() {
     //atribuir escala e tempo de vida aos obstáculos
     cacto.scale = 0.5;
     cacto.lifetime = 110;
+
+    reiniciar.depth = cacto.depth+1;
+    gameOver.depth = cacto.depth+1;
     grupoCactos.add(cacto);
   }
 }
 
 function reinicie(){
-  
+  estadoJogo = JOGAR;
+
+  reiniciar.visible = false;
+  gameOver.visible = false;
+
+  grupoNuvens.destroyEach();
+  grupoCactos.destroyEach();
+
+  trex.changeAnimation("correndo", trex_correndo);
+
+  pontos = 0;
 }
