@@ -34,10 +34,10 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600, 200);
+  createCanvas(windowWidth, windowHeight);
 
   //cria trex
-  trex = createSprite(50, 100, 20, 50);
+  trex = createSprite(50, height / 2, 20, 50);
   trex.addAnimation("correndo", trex_correndo);
   trex.addAnimation("colidiu", trex_colidiu);
   trex.scale = 0.5;
@@ -46,21 +46,21 @@ function setup() {
   //colisor para a IA
   // trex.setCollider("rectangle",100,0);
 
-  solo = createSprite(300, 170, 1200, 5);
+  solo = createSprite(width / 2, height - 30, 1200, 5);
   solo.addImage(soloImg);
 
-  soloInvisivel = createSprite(300, 180, 1200, 5);
+  soloInvisivel = createSprite(300, height - 20, 1200, 5);
   soloInvisivel.visible = false;
 
   grupoNuvens = new Group();
   grupoCactos = new Group();
 
-  gameOver = createSprite(300, 80);
+  gameOver = createSprite(width / 2, height / 2 - 20);
   gameOver.addImage(gameOverImg);
   gameOver.scale = 0.5;
   gameOver.visible = false;
 
-  reiniciar = createSprite(300, 120);
+  reiniciar = createSprite(width / 2, height / 2 + 20);
   reiniciar.addImage(reiniciarImg);
   reiniciar.scale = 0.5;
   reiniciar.visible = false;
@@ -68,7 +68,7 @@ function setup() {
 
 function draw() {
   background("white");
-  text("Pontos: " + pontos, 500, 20);
+  text("Pontos: " + pontos, width - 100, 20);
 
   trex.collide(soloInvisivel);
 
@@ -78,26 +78,27 @@ function draw() {
   if (estadoJogo === JOGAR) {
 
     //aumentar pontos
-    pontos = Math.round(pontos + frameRate()/60);
+    pontos = Math.round(pontos + frameRate() / 60);
     //tocar som a cada 100 pontos
-    if(pontos>0 && pontos%100 === 0){
+    if (pontos > 0 && pontos % 100 === 0) {
       somPontos.play();
     }
 
     //pulo
-    if (keyDown("space") && trex.y > 153) {
+    if (keyDown("space") && trex.y > height-47 || touches > 0 && trex.y > height-47) {
       trex.velocityY = -20;
       somPulo.play();
+      touches = [];
     }
 
     //gravidade
     trex.velocityY = trex.velocityY + 1.5;
 
     //mudando a velocidade do solo de acordo com a pontuação
-    solo.velocityX = -(5+ pontos*3/100);
+    solo.velocityX = -(5 + pontos * 3 / 100);
     //tornando o solo infinito
     if (solo.x < 0) {
-      solo.x = solo.width / 2;
+      solo.x = width / 2;
     }
 
     //gerando nuvens e cactos
@@ -138,10 +139,10 @@ function draw() {
     gameOver.visible = true;
     reiniciar.visible = true;
 
-    if (mousePressedOver(reiniciar)){
-      console.log("reiniciar");
+    if (mousePressedOver(reiniciar) || touches > 0) {
       reinicie();
-     }
+      touches = [];
+    }
   }
 }
 
@@ -149,14 +150,14 @@ function draw() {
 function gerarNuvens() {
 
   if (frameCount % 60 === 0) {
-    nuvem = createSprite(630, 100, 40, 10);
-    nuvem.y = Math.round(random(40, 120));
+    nuvem = createSprite(width+30, 100, 40, 10);
+    nuvem.y = Math.round(random(40, height/2+height/10));
     nuvem.addImage(nuvemImg);
     nuvem.scale = 0.5;
     nuvem.velocityX = -3;
     nuvem.depth = trex.depth;
     trex.depth = trex.depth + 1;
-    nuvem.lifetime = 220;
+    nuvem.lifetime = width/nuvem.velocityX+20;
     grupoNuvens.add(nuvem);
   }
 }
@@ -164,8 +165,8 @@ function gerarNuvens() {
 function gerarCactos() {
   //criar sprite de obstáculo a cada 60 quadros
   if (frameCount % 40 === 0) {
-    cacto = createSprite(600, 155, 10, 40);
-    cacto.velocityX = -(6+ pontos*3/100);
+    cacto = createSprite(width+30, height-45, 10, 40);
+    cacto.velocityX = -(6 + pontos * 3 / 100);
 
     //adicionar imagem ao obstaculo aleatoriamente
     var rand = Math.round(random(1, 6));
@@ -193,15 +194,15 @@ function gerarCactos() {
     }
     //atribuir escala e tempo de vida aos obstáculos
     cacto.scale = 0.5;
-    cacto.lifetime = 110;
+    cacto.lifetime = width/cacto.velocityX+10;
 
-    reiniciar.depth = cacto.depth+1;
-    gameOver.depth = cacto.depth+1;
+    reiniciar.depth = cacto.depth + 1;
+    gameOver.depth = cacto.depth + 1;
     grupoCactos.add(cacto);
   }
 }
 
-function reinicie(){
+function reinicie() {
   estadoJogo = JOGAR;
 
   reiniciar.visible = false;
