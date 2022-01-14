@@ -1,4 +1,4 @@
-var trex, trex_correndo, bordas;
+var trex, trex_correndo, solo;
 
 function preload(){
   
@@ -20,8 +20,8 @@ function setup(){
   //adiciona a animação de T-Rex correndo ao sprite
   trex.addAnimation('correndo', trex_correndo);
   
-  //cria bordas
-  bordas = createEdgeSprites();
+  //cria solo
+  solo = createSprite(300,190,600,20);
   
   //aprendendo sobre console.log
   //escreve o nome do jogo no terminal
@@ -43,7 +43,7 @@ function draw(){
     }
   
   //Trex colide com a borda inferior
-  trex.collide(bordas[3]);
+  trex.collide(solo);
   
   //gravidade
   trex.velocityY = trex.velocityY + 1;
