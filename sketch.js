@@ -42,12 +42,6 @@ function draw(){
   //desenha os sprites
 drawSprites();
   
-  //T-Rex pula ao apertar espaço
-  if(keyDown('space')){
-trex.velocityY = -15; 
-}
-  
-  
 //Trex colide com o solo
   trex.collide(solo);
   
@@ -60,9 +54,15 @@ console.log("posição Y do T-Rex: " + trex.y);
   //faz o T-Rex correr adicionando velocidade ao solo
   solo.velocityX = -6;
   
+    //T-Rex pula ao apertar espaço
+  if(keyDown('space')){
+trex.velocityY = -15; 
+}
+  
+  
 //faz o solo voltar ao centro se metade dele sair da tela
   if (solo.x<0){
 solo.x=solo.width/2
-}
+  }
   
 }
