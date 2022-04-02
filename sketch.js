@@ -42,11 +42,11 @@ function draw(){
       trex.velocityY = -10; 
     }
   
-  //Trex colide com a borda inferior
-  trex.collide(solo);
-  
   //gravidade
   trex.velocityY = trex.velocityY + 1;
+  
+   //Trex colide com a borda inferior
+  trex.collide(solo);
   
   //Registra a posição Y do T-Rex no reminal
   console.log(trex.y);
