@@ -17,7 +17,7 @@ Esta é uma réplica do famoso jogo do T-rex, originalmente criado pela Google. 
 
 #### Ao estudar este jogo, os alunos aprendem:
 
-- manipulação de códigos no VS Code
+- manipulação de códigos no Visual Studio Code
 - gerenciamento de versões e criação de páginas no GitHub
 - carregamento e utilização de animações, imagens e sons
 - criação de cenários infinitos
