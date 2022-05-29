@@ -7,6 +7,8 @@
 
 ### Sim, aquele mesmo, que aparece quando você está usando o Google Chrome e a internet cai 😅
 
+<br>
+
 ![dino](https://raw.githubusercontent.com/Beatriz-Sanchez/trex-template/main/trex_colidiu.png "T-rex")
 ![cacto](https://raw.githubusercontent.com/Beatriz-Sanchez/trex-template/main/obstaculo6.png "cacto")
 
